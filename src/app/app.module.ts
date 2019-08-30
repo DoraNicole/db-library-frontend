@@ -29,9 +29,17 @@ import {LoginComponent} from './login/login.component';
 import {JwtInterceptor} from './helpers/jwt.interceptor';
 import {ErrorInterceptor} from './helpers/error.interceptor';
 import {BookGridComponent} from './pages/grid-books/book-grid-icon/book-grid-icon.component';
+
+import {DialogModule} from '@syncfusion/ej2-angular-popups';
+import { DialogConfirmComponent } from './services/dialog-confirm/dialog-confirm.component';
+import {ConfirmationDialogService} from './services/dialog-confirm/dialog-confirm.service';
+
+
+import { ParallaxDirective } from './parallax.directive';
+import { UserComponent } from './user/user.component';
 import {BookPageComponent} from './pages/book-page/book-page.component';
 import {ForbiddenComponent } from './pages/forbidden/forbidden.component';
-import {LoginPageComponent} from './pages/login-page/login-page.component';
+import {UserBookService} from './services/userBook.service';
 
 
 
@@ -53,8 +61,12 @@ import {LoginPageComponent} from './pages/login-page/login-page.component';
     AdminDashboardBooksTableComponent,
     BookGridComponent,
     RegisterPageComponent,
-    BookPageComponent,
     ForbiddenComponent,
+    DialogConfirmComponent,
+    ParallaxDirective,
+    UserComponent,
+    BookPageComponent
+
   ],
   imports: [
     BrowserModule,
@@ -65,16 +77,20 @@ import {LoginPageComponent} from './pages/login-page/login-page.component';
     ImageUploadModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
+    DialogModule,
   ],
   providers: [BookService,
     UserService,
+    ConfirmationDialogService,
     UploadImageService,
     AuthenticationService,
+    UserBookService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ DialogConfirmComponent ],
 })
 export class AppModule {
 }
